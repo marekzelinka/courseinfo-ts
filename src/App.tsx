@@ -22,19 +22,35 @@ const App = () => {
 
   return (
     <div>
-      <h1>{courseName}</h1>
-      <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
-      </p>
-      <p>Number of exercises {totalExercises}</p>
+      <Header name={courseName} />
+      <Content parts={courseParts} />
+      <Total totalExercises={totalExercises} />
     </div>
   );
 };
 
 export default App;
+
+const Header = ({ name }: { name: string }) => {
+  return <h1>{name}</h1>;
+};
+
+const Content = ({
+  parts,
+}: {
+  parts: { name: string; exerciseCount: number }[];
+}) => {
+  return (
+    <div>
+      {parts.map((part) => (
+        <p key={part.name}>
+          {part.name} {part.exerciseCount}
+        </p>
+      ))}
+    </div>
+  );
+};
+
+const Total = ({ totalExercises }: { totalExercises: number }) => {
+  return <p>Number of exercises {totalExercises}</p>;
+};
